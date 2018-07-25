@@ -42,12 +42,7 @@ public class PolicyService implements ServiceInterface {
     }
 
     public void updatePolicyDescription(UUID policyId, String description){
-        for (Policy policy : this.policyPool) {
-            if (policy.getId() == policyId) {
-                policy.setDescription(description);
-                return;
-            }
-        }
+        this.getPolicy(polidyId).setDescription(description);
     }
 
     public ArrayList<Policy> getPolicyPool(){

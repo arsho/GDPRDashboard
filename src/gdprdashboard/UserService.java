@@ -8,7 +8,7 @@ public class UserService implements ServiceInterface{
     public UserService(){
         this.users=new ArrayList<User>();
     }
-    
+
     public UUID createUser(String name, String email, String Country){
         User user = new User(name, email, country);
         this.users.add(user);
@@ -16,12 +16,7 @@ public class UserService implements ServiceInterface{
     }
 
     public void deleteUser(UUID userId){
-        for (User user : this.users) {
-            if (user.getId() == userId) {
-                this.users.remove(user);
-                return;
-            }
-        }
+        this.users.remove(this.getUser(userId));
     }
 
     public User getUser(UUID userId){
@@ -39,14 +34,10 @@ public class UserService implements ServiceInterface{
     }
 
     public void updateUser(UUID userId, String name, String email, String country){
-        for (User user : this.users) {
-            if (user.getId() == userId) {
-                user.setCountry(country);
-                user.setEmail(email);
-                user.setName(name);
-                return;
-            }
-        }
+        User user = this.getUser(userId);
+        user.setCountry(country);
+        user.setEmail(email);
+        user.setName(name);
     }
 
     public ArrayList<UUID> getUsers(){
