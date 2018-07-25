@@ -2,20 +2,15 @@ package gdprdashboard;
 
 import java.util.UUID;
 
-public class PolicyMapper {
+public class PolicyMapper extends Core {
 
     // Todo: how to store the id rather than the policy itself? PolicyPool?
-    private UUID id;
     private UUID policyId;
     private boolean userChoice;
 
     public PolicyMapper(UUID policyId, boolean userChoice) {
         this.policyId = policyId;
         this.userChoice = userChoice;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public UUID getPolicyId() {

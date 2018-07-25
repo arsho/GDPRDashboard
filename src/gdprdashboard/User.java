@@ -2,22 +2,15 @@ package gdprdashboard;
 
 import java.util.UUID;
 
-public class User {
-
-    private UUID id;
+public class User extends Core {
     private String name;
     private String email;
     private String country;
 
     public User(String name, String email, String country) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
         this.country = country;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getName() {

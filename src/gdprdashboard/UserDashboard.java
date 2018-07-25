@@ -3,9 +3,7 @@ package gdprdashboard;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UserDashboard {
-
-    private UUID id;
+public class UserDashboard extends Core{
     private UUID userId;
     private ArrayList<PolicyMapper> policyMappers;
 
@@ -52,14 +50,6 @@ public class UserDashboard {
                 policyMapper.setUserChoice(userChoice);
             }
         }
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public UUID getUserId() {
