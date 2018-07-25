@@ -6,11 +6,11 @@ public class PolicyMapper {
 
     // Todo: how to store the id rather than the policy itself? PolicyPool?
     private UUID id;
-    private Policy policy;
+    private UUID policyId;
     private boolean userChoice;
 
-    public PolicyMapper(Policy policy, boolean userChoice) {
-        this.policy = policy;
+    public PolicyMapper(UUID policyId, boolean userChoice) {
+        this.policyId = policyId;
         this.userChoice = userChoice;
     }
 
@@ -18,8 +18,8 @@ public class PolicyMapper {
         return id;
     }
 
-    public Policy getPolicy() {
-        return policy;
+    public UUID getPolicyId() {
+        return policyId;
     }
 
     public boolean getUserChoice() {

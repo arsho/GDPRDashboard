@@ -8,11 +8,20 @@ public class Policy {
     private UUID id;
     private String name;
     private String description;
+    private boolean defaultValue;
+
+    public Policy(String name, String description, boolean defaultValue) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.description = description;
+        this.defaultValue = defaultValue;
+    }
 
     public Policy(String name, String description) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
+        this.defaultValue = true;
     }
 
     public UUID getId() {
@@ -35,4 +44,13 @@ public class Policy {
         this.description = description;
     }
 
+    public boolean getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(boolean defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    
 }
