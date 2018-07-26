@@ -40,10 +40,18 @@ public class UserDashboardService implements ServiceInterface{
         this.userDashboards.remove(this.getUserDashboardById(dashboardId));
     }
 
-    public void updatePolicyForUser(UUID userId, UUID policyId, boolean userChoice, PolicyService policyService){
+    private void updatePolicyForUser(UUID userId, UUID policyId, boolean userChoice, PolicyService policyService){
         UserDashboard userDashboard = this.getUserDashboard(userId);
         UserDashboardHelper helper = new UserDashboardHelper(userDashboard, policyService);
         helper.updatePolicyMappers(policyId, userChoice);
+    }
+
+    public void userComplyToPolicy(UUID userId, UUID policyId, PolicyService policyService){
+        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.COMPLY.value(), policyService);
+    }
+
+    public void userNotComplyToPolicy(UUID userId, UUID policyId, PolicyService policyService){
+        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.OPT_OUT.value(), policyService);
     }
 
     public ArrayList<PolicyMapper> getPolicyMappersByUserId(UUID userId, PolicyService policyService){
