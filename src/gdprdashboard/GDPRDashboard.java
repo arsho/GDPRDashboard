@@ -32,7 +32,7 @@ public class GDPRDashboard {
         System.out.println("===========================================================\n");
         
         System.out.println("==================updating policy for arnab==================");
-        userDashboardService.updatePolicyForUser(arnabId, googleAnalyticsID, false, policyService);
+        userDashboardService.userNotComplyToPolicy(arnabId, googleAnalyticsID, policyService);
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
             System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
