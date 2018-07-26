@@ -83,7 +83,6 @@ public class GDPRDashboard {
             System.out.println("user id"+ userId + ", name: " + userService.getUserName(userId));
         });
         System.out.println("===========================================================\n");
-
     }
 
 }
