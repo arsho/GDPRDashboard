@@ -88,7 +88,7 @@ public class UserDashboardService implements ServiceInterface {
         ArrayList<UUID> userIds = new ArrayList<UUID>();
         for (UserDashboard dashboard : this.getDashboardInstances()) {
             for ( PolicyMapper policyMapper: dashboard.getPolicyMappers()){
-                if (policyMapper.getPolicyId() == policyId){
+                if (policyMapper.getPolicyId().equals(policyId)){
                     userIds.add(dashboard.getUserId());
                 }
             }

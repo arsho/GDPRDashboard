@@ -132,40 +132,48 @@ public class InteractiveGDPRDashboard {
         return policies;
     }
 
+    public void showSingleUserDashboard(InteractiveGDPRDashboard gdprDashboard, UUID userId) {
+        String userFormat = "| %-36s | %-48s |%n";
+        String policyFormat = "| %-36s | %-30s | %-15s |%n";
+
+        System.out.format("+--------------------------------------+--------------------------------------------------+%n");
+        System.out.format("| User ID                              | User Name                                        |%n");
+        System.out.format("+--------------------------------------+--------------------------------------------------+%n");
+        System.out.printf(userFormat, userId, gdprDashboard.userService.getUserName(userId));
+        System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
+        System.out.format("| Policy ID                            | Policy Name                    | User Consent    |%n");
+        System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
+
+        for (PolicyMapper policyMapper : gdprDashboard.userDashboardService.getPolicyMappersByUserId(userId)) {
+            System.out.printf(policyFormat, policyMapper.getPolicyId(),
+                    gdprDashboard.policyService.getPolicyName(policyMapper.getPolicyId()),
+                    policyMapper.getUserChoice());
+            System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
+        }
+        System.out.println();
+    }
+
     public void showAllUserDashboard(InteractiveGDPRDashboard gdprDashboard) {
         String userFormat = "| %-36s | %-48s |%n";
         String policyFormat = "| %-36s | %-30s | %-15s |%n";
 
-        System.out.println("===========================================================");
         for (UUID userId : gdprDashboard.userService.getUsers()) {
-            System.out.format("+--------------------------------------+--------------------------------------------------+%n");
-            System.out.format("| User ID                              | User Name                                        |%n");
-            System.out.format("+--------------------------------------+--------------------------------------------------+%n");
-            System.out.printf(userFormat, userId, gdprDashboard.userService.getUserName(userId));
-            System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
-            System.out.format("| Policy ID                            | Policy Name                    | User Consent    |%n");
-            System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
-
-            for (PolicyMapper policyMapper : gdprDashboard.userDashboardService.getPolicyMappersByUserId(userId, gdprDashboard.policyService)) {
-                System.out.printf(policyFormat, policyMapper.getPolicyId(),
-                        gdprDashboard.policyService.getPolicyName(policyMapper.getPolicyId()),
-                        policyMapper.getUserChoice());
-                System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
-            }
-            System.out.println();
+            showSingleUserDashboard(gdprDashboard, userId);
         }
-        System.out.println("===========================================================\n");
-
+        System.out.println("\n");
     }
 
     public void showMenu() {
         System.out.println("Choose from following choices");
         System.out.println("-----------------------------\n");
-        System.out.println("1 - Update an user consent");
-        System.out.println("2 - View an user's dashboard");
-        System.out.println("3 - Add a policy");
-        System.out.println("4 - Delete a policy");
-        System.out.println("5 - Quit");
+        System.out.println("1 - View all users' dashboard");
+        System.out.println("2 - Update an user consent");
+        System.out.println("3 - View an user's dashboard");
+        System.out.println("4 - Add new policy");
+        System.out.println("5 - Delete policy");
+        System.out.println("6 - Add new user");
+        System.out.println("7 - Delete user");
+        System.out.println("100 - Quit");
         System.out.println("");
         System.out.print("Enter your choice: ");
 
@@ -183,71 +191,103 @@ public class InteractiveGDPRDashboard {
         policyDataFile = gdprDashboard.getPolicyDataFile();
         ArrayList<User> users = gdprDashboard.getUserData(userDataFile);
         ArrayList<Policy> policies = gdprDashboard.getPolicyData(policyDataFile);
-        System.out.println("Users: " + users.size());
-        System.out.println("Policies: " + policies.size());
-
-        UUID facebookGraphApiID = null;
 
         for (Policy policy : policies) {
             UUID policyId = gdprDashboard.policyService.createPolicy(policy.getName(), policy.getDescription());
-            facebookGraphApiID = policyId;
         }
 
-        UUID arnabId = null;
         for (User user : users) {
             UUID userId = gdprDashboard.userService.createUser(user.getName(), user.getEmail(), user.getCountry());
-            UUID dashboardId = gdprDashboard.userDashboardService.createUserDashboard(userId, gdprDashboard.policyService);
-            arnabId = userId;
+            UUID dashboardId = gdprDashboard.userDashboardService.createUserDashboard(userId);
         }
-        gdprDashboard.showAllUserDashboard(gdprDashboard);
         int userChoice;
+        gdprDashboard.showAllUserDashboard(gdprDashboard);
         while (true) {
             gdprDashboard.showMenu();
             userChoice = gdprDashboard.sc.nextInt();
             boolean programExit = false;
             switch (userChoice) {
                 case 1:
+                    // Show all users dashboard
+                    gdprDashboard.showAllUserDashboard(gdprDashboard);
+                    break;
+                case 2:
                     // Update one user consent
                     UUID userId;
                     UUID policyId;
                     boolean consentValue;
-                    System.out.println("Enter User ID: ");
+                    System.out.print("Enter User ID: ");
                     String userIdStr = gdprDashboard.sc.next().trim();
                     userId = CommonService.fromString(userIdStr);
-                    System.out.println("Enter Policy ID: ");
+                    System.out.print("Enter Policy ID: ");
                     String policyIdStr = gdprDashboard.sc.next().trim();
                     policyId = CommonService.fromString(policyIdStr);
-                    System.out.println("Enter Consent(1 for yes, 2 for no): ");
+                    System.out.print("Enter Consent(1 for yes, 2 for no): ");
                     int consent = gdprDashboard.sc.nextInt();
-                    
+
                     consentValue = (consent == 1) ? true : false;
-                    System.out.println(userIdStr + "\n" + userId + "\n" + arnabId);
-                    System.out.println(policyIdStr + "\n" + policyId + "\n" + facebookGraphApiID);
-                    if (userId.equals(arnabId)) {
-                        System.out.println("user id mached");
-                        
-                    }
-                    if (policyId.equals(facebookGraphApiID)) {
-                        System.out.println("policy id mached");
-                    }
                     if (consentValue) {
-                        gdprDashboard.userDashboardService.userComplyToPolicy(userId, policyId, gdprDashboard.policyService);
+                        gdprDashboard.userDashboardService.userComplyToPolicy(userId, policyId);
                     } else {
-                        gdprDashboard.userDashboardService.userNotComplyToPolicy(userId, policyId, gdprDashboard.policyService);
+                        gdprDashboard.userDashboardService.userNotComplyToPolicy(userId, policyId);
                     }
-                    //gdprDashboard.userDashboardService.userNotComplyToPolicy(arnabId, facebookGraphApiID, gdprDashboard.policyService);
                     gdprDashboard.showAllUserDashboard(gdprDashboard);
                     break;
-                case 2:
-                    // Perform "encrypt number" case.
-                    break;
                 case 3:
-                    // Perform "decrypt number" case.
+                    // Show single user dashboard
+                    UUID searchedUserId;
+                    System.out.print("Enter User ID: ");
+                    String searchedUserIdStr = gdprDashboard.sc.next().trim();
+                    searchedUserId = CommonService.fromString(searchedUserIdStr);
+                    gdprDashboard.showSingleUserDashboard(gdprDashboard, searchedUserId);
                     break;
                 case 4:
-                    // Perform "quit" case.
+                    // Add a policy
+                    String policyName,
+                     policyDescription;
+                    System.out.print("Enter policy name: ");
+                    policyName = gdprDashboard.sc.nextLine().trim();
+                    policyName = gdprDashboard.sc.nextLine().trim();
+                    System.out.print("Enter policy description: ");
+                    policyDescription = gdprDashboard.sc.nextLine().trim();
+                    UUID newPolicyId = gdprDashboard.policyService.createPolicy(policyName, policyDescription);
+                    gdprDashboard.showAllUserDashboard(gdprDashboard);
                     break;
                 case 5:
+                    // Delete a policy
+                    UUID deletePolicyId;
+                    System.out.print("Enter Policy ID: ");
+                    String deletePolicyIdStr = gdprDashboard.sc.next().trim();
+                    deletePolicyId = CommonService.fromString(deletePolicyIdStr);
+                    gdprDashboard.policyService.deletePolicy(deletePolicyId);
+                    gdprDashboard.showAllUserDashboard(gdprDashboard);
+                    break;
+                case 6:
+                    // Add an user
+                    String userName,
+                     userEmail,
+                     userCountry;
+                    System.out.print("Enter user name: ");
+                    userName = gdprDashboard.sc.nextLine().trim();
+                    userName = gdprDashboard.sc.nextLine().trim();
+                    System.out.print("Enter user email: ");
+                    userEmail = gdprDashboard.sc.nextLine().trim();
+                    System.out.print("Enter user country: ");
+                    userCountry = gdprDashboard.sc.nextLine().trim();
+                    UUID newUserId = gdprDashboard.userService.createUser(userName, userEmail, userCountry);
+                    UUID newDashboardId = gdprDashboard.userDashboardService.createUserDashboard(newUserId);
+                    gdprDashboard.showAllUserDashboard(gdprDashboard);
+                    break;
+                case 7:
+                    // Delete an user
+                    UUID deleteUserId;
+                    System.out.print("Enter User ID: ");
+                    String deleteUserIdStr = gdprDashboard.sc.next().trim();
+                    deleteUserId = CommonService.fromString(deleteUserIdStr);
+                    gdprDashboard.userService.deleteUser(deleteUserId);
+                    gdprDashboard.showAllUserDashboard(gdprDashboard);
+                    break;
+                case 100:
                     // Perform "quit" case.
                     programExit = true;
                     break;
