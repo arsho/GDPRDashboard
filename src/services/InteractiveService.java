@@ -1,7 +1,9 @@
-package gdprdashboard;
+package services;
 
 import java.util.Scanner;
 import java.util.UUID;
+import interfaces.ServiceInterface;
+import models.PolicyMapper;
 
 public class InteractiveService implements ServiceInterface {
 
@@ -17,7 +19,7 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public String userNextLineInput(String promptMsg) {
-        System.out.println(promptMsg);
+        System.out.print(promptMsg);
         while (true) {
             try {
                 String newLineValue = "";
@@ -34,7 +36,7 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public String userNextInput(String promptMsg) {
-        System.out.println(promptMsg);
+        System.out.print(promptMsg);
         while (true) {
             try {
                 return this.sc.next().trim();
@@ -45,7 +47,7 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public int nextIntegerInput(String promptMsg) {
-        System.out.println(promptMsg);
+        System.out.print(promptMsg);
         while (true) {
             try {
                 return this.sc.nextInt();
@@ -178,6 +180,9 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public void showAllUserDashboard() {
+        System.out.format("+=========================================================================================+%n");
+        System.out.format("|                                  GDPR DASHBOARDS                                        |%n");
+        System.out.format("+-----------------------------------------------------------------------------------------+%n");
         for (UUID userId : this.userService.getUsers()) {
             showSingleUserDashboard(userId);
         }
@@ -197,7 +202,5 @@ public class InteractiveService implements ServiceInterface {
         System.out.println("7 - Delete user");
         System.out.println("0 - Quit");
         System.out.println("");
-        System.out.print("Enter your choice: ");
-
     }
 }

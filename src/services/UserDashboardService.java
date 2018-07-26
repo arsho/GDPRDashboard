@@ -1,7 +1,13 @@
-package gdprdashboard;
+package services;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
+import storages.UserDashboardStorage;
+import models.UserDashboard;
+import models.PolicyMapper;
+import enums.UserConsentEnum;
+import interfaces.ServiceInterface;
 
 public class UserDashboardService implements ServiceInterface {
 
@@ -9,10 +15,8 @@ public class UserDashboardService implements ServiceInterface {
     private PolicyService policyService;
     private UserService userService;
 
-
-
     public UserDashboardService() {
-        UserDashboardStorage storageInstance = UserDashboardStorage.getInstance(); 
+        UserDashboardStorage storageInstance = UserDashboardStorage.getInstance();
         this.userDashboards = storageInstance;
         this.policyService = new PolicyService();
         this.userService = new UserService();
@@ -37,19 +41,19 @@ public class UserDashboardService implements ServiceInterface {
         }
         return userDashboard;
     }
-    
-    public void createAllUserDashboards(){
-        for(UUID userId: this.userService.getUsers()){
+
+    public void createAllUserDashboards() {
+        for (UUID userId : this.userService.getUsers()) {
             this.createUserDashboard(userId);
         }
     }
 
     @SuppressWarnings("empty-statement")
     public UUID createUserDashboard(UUID userId) {
-        for(UserDashboard userDashboard : this.getDashboardInstances()){
-          if (userDashboard.getUserId().equals(userId)){
-              return userDashboard.getId();
-          };  
+        for (UserDashboard userDashboard : this.getDashboardInstances()) {
+            if (userDashboard.getUserId().equals(userId)) {
+                return userDashboard.getId();
+            };
         };
         UserDashboard userDashboard = new UserDashboard(userId, this.policyService.getPolicyPool());
         this.userDashboards.addData(userDashboard);
@@ -79,7 +83,7 @@ public class UserDashboardService implements ServiceInterface {
         UserDashboardHelper helper = new UserDashboardHelper(userDashboard);
         return helper.getPolicyMappers();
     }
-    
+
     public void showPolicyMappersByUserId(UUID userId) {
         for (PolicyMapper policyMapper : this.getPolicyMappersByUserId(userId)) {
             System.out.println("\tPolicy Name: " + this.policyService.getPolicyName(policyMapper.getPolicyId()));
@@ -98,12 +102,12 @@ public class UserDashboardService implements ServiceInterface {
     public ArrayList<UserDashboard> getDashboardInstances() {
         return this.userDashboards.getData();
     }
-    
-    public ArrayList<UUID> getUserByPolicyId(UUID policyId){
+
+    public ArrayList<UUID> getUserByPolicyId(UUID policyId) {
         ArrayList<UUID> userIds = new ArrayList<>();
         this.getDashboardInstances().forEach((dashboard) -> {
-            for ( PolicyMapper policyMapper: dashboard.getPolicyMappers()){
-                if (policyMapper.getPolicyId().equals(policyId)){
+            for (PolicyMapper policyMapper : dashboard.getPolicyMappers()) {
+                if (policyMapper.getPolicyId().equals(policyId)) {
                     userIds.add(dashboard.getUserId());
                 }
             }

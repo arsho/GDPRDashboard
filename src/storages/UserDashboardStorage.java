@@ -1,7 +1,9 @@
-package gdprdashboard;
+package storages;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import interfaces.BaseStorageInterface;
+import models.UserDashboard;
 
 public class UserDashboardStorage implements BaseStorageInterface {
 
@@ -28,7 +30,7 @@ public class UserDashboardStorage implements BaseStorageInterface {
         this.userDashboards.add(userDashboard);
     }
 
-    public void removeData(Core userDashboard) {
+    public void removeData(UserDashboard userDashboard) {
         this.userDashboards.remove(userDashboard);
     }
 

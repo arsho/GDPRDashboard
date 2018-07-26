@@ -1,34 +1,36 @@
-package gdprdashboard;
+package storages;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import interfaces.BaseStorageInterface;
+import models.Policy;
 
-public class PolicyStorage implements BaseStorageInterface{
+public class PolicyStorage implements BaseStorageInterface {
+
     public ArrayList<Policy> policies;
     private static PolicyStorage single_instance = null;
 
-    private PolicyStorage()
-    {
-        this.policies=new ArrayList<Policy>();
+    private PolicyStorage() {
+        this.policies = new ArrayList<Policy>();
     }
 
-    public static PolicyStorage getInstance()
-    {
-        if (single_instance == null)
+    public static PolicyStorage getInstance() {
+        if (single_instance == null) {
             single_instance = new PolicyStorage();
- 
+        }
+
         return single_instance;
     }
 
-    public ArrayList<Policy> getData(){
+    public ArrayList<Policy> getData() {
         return this.policies;
     }
 
-    public void addData(Policy policy){
+    public void addData(Policy policy) {
         this.policies.add(policy);
     }
-    
-    public void removeData(Policy policy){
+
+    public void removeData(Policy policy) {
         this.policies.remove(policy);
     }
 
@@ -39,7 +41,7 @@ public class PolicyStorage implements BaseStorageInterface{
 
     @Override
     public boolean doesExist(UUID instanceId) {
-         for (Policy policy : this.getData()) {
+        for (Policy policy : this.getData()) {
             if (policy.getId() == instanceId) {
                 return true;
             }

@@ -1,89 +1,74 @@
 package gdprdashboard;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.UUID;
+import services.UserService;
+import services.UserDashboardService;
+import services.FileService;
+import services.InteractiveService;
 
 public class GDPRDashboard {
 
     public static void main(String[] args) {
-        // delcaring services
-        UserService userService = new UserService();
-        PolicyService policyService = new PolicyService();
+        System.out.println("WELCOME TO GDPR DASHBOARD");
+        System.out.println("===========================================================\n");
         UserDashboardService userDashboardService = new UserDashboardService();
+        FileService fileService = new FileService();
+        InteractiveService interactiveService = new InteractiveService();
+        fileService.processPolicyData();
+        fileService.processUserData();
+        userDashboardService.createAllUserDashboards();
 
-        // delcaring policies
-        UUID googleAnalyticsID = policyService.createPolicy("Google Analytics", "User data is being sent to Google Analytics");
-        UUID facebookGraphApiID = policyService.createPolicy("Facebook Graph API", "User data is being sent to Facebook Graph API");
-
-        // delcaring users
-        UUID shovonId = userService.createUser("Ahmedur Rahman Shovon", "arshovon@cefalo.com", "Bangladesh");
-        UUID arnabId = userService.createUser("Arnab Kumar Shil", "arnab@cefalo.com", "Bangladesh");
-
-        // delcaring dashboards
-        UUID shovonDashboardId = userDashboardService.createUserDashboard(shovonId);
-        UUID arnabDashboardId = userDashboardService.createUserDashboard(arnabId);
-
-        System.out.println("==============showing default policies for users===========");
-        System.out.println("===========================================================");
-        for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
-            userDashboardService.showPolicyMappersByUserId(userId);
+        while (true) {
+            interactiveService.showMenu();
+            int userChoice;
+            String promptMsg = "Enter your choice: ";
+            userChoice = interactiveService.nextIntegerInput(promptMsg);
+            boolean programExit = false;
+            switch (userChoice) {
+                case 1:
+                    // Show all users dashboard
+                    interactiveService.showAllUserDashboard();
+                    break;
+                case 2:
+                    // Update one user consent
+                    interactiveService.updateUserConscentInteractive();
+                    break;
+                case 3:
+                    // Show single user dashboard
+                    interactiveService.showSingleUserDashboardInteractive();
+                    break;
+                case 4:
+                    // Add a policy
+                    interactiveService.addSinglePolicyInteractive();
+                    break;
+                case 5:
+                    // Delete a policy
+                    interactiveService.deleteSinglePolicyInteractive();
+                    break;
+                case 6:
+                    // Add an user
+                    interactiveService.addUserInteractive();
+                    break;
+                case 7:
+                    // Delete an user
+                    interactiveService.deleteUserInteractive();
+                    break;
+                case 0:
+                    // Perform "quit" case.
+                    programExit = true;
+                    break;
+                default:
+                    // The user input an unexpected choice.
+                    programExit = true;
+                    break;
+            }
+            if (programExit) {
+                break;
+            }
         }
-        System.out.println("===========================================================\n");
-
-        System.out.println("==================updating policy for arnab==================");
-        userDashboardService.userNotComplyToPolicy(arnabId, facebookGraphApiID);
-        System.out.println("===========================================================");
-        userService.getUsers().stream().map((userId) -> {
-            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
-            return userId;
-        }).forEachOrdered((userId) -> {
-            userDashboardService.showPolicyMappersByUserId(userId);
-        });
-        System.out.println("===========================================================\n");
-
-        System.out.println("====================creating new policy===================");
-        UUID netsPaymentApiID = policyService.createPolicy("Nets Payment API", "User data is being sent to Nets Payment API");
-        System.out.println("===========================================================");
-        userService.getUsers().stream().map((userId) -> {
-            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
-            return userId;
-        }).forEachOrdered((userId) -> {
-            userDashboardService.showPolicyMappersByUserId(userId);
-        });
-        System.out.println("===========================================================\n");
-
-        System.out.println("======================remove ga policy=====================");
-        policyService.deletePolicy(googleAnalyticsID);
-        System.out.println("===========================================================");
-        userService.getUsers().stream().map((userId) -> {
-            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
-            return userId;
-        }).forEachOrdered((userId) -> {
-            userDashboardService.showPolicyMappersByUserId(userId);
-        });
-        System.out.println("===========================================================\n");
-
-        UUID musaId = userService.createUser("Abu Saleh Musa", "musa@cefalo.com", "Bangladesh");
-        UUID musaDashboardId = userDashboardService.createUserDashboard(musaId);
-        System.out.println("======================add new user=========================");
-        policyService.deletePolicy(googleAnalyticsID);
-        System.out.println("===========================================================");
-        userService.getUsers().stream().map((userId) -> {
-            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
-            return userId;
-        }).forEachOrdered((userId) -> {
-            userDashboardService.showPolicyMappersByUserId(userId);
-        });
-        System.out.println("===========================================================\n");
-
-        System.out.println("====================get users from a policy==================");
-        System.out.println("===========================================================");
-        System.out.println("Showing user ids for policy: " + facebookGraphApiID);
-        userDashboardService.getUserByPolicyId(facebookGraphApiID).forEach((userId) -> {
-            System.out.println("\tuser id"+ userId + ", name: " + userService.getUserName(userId));
-        });
-        System.out.println("===========================================================\n");
-
     }
 
 }

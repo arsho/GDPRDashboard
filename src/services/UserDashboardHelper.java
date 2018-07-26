@@ -1,7 +1,11 @@
-package gdprdashboard;
+package services;
 
 import java.util.ArrayList;
 import java.util.UUID;
+
+import models.UserDashboard;
+import models.Policy;
+import models.PolicyMapper;
 
 public class UserDashboardHelper {
 

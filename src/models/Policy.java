@@ -1,6 +1,7 @@
-package gdprdashboard;
+package models;
 
 import java.util.UUID;
+import enums.*;
 
 public class Policy extends Core {
 

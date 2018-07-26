@@ -1,34 +1,35 @@
+package services;
 
-package gdprdashboard;
-import gdprdashboard.User;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import models.*;
+import interfaces.*;
 
-public class FileService implements ServiceInterface{
+public class FileService implements ServiceInterface {
+
     Scanner sc = new Scanner(System.in);
     private Scanner fileScanner;
-    
+
     private PolicyService policyService;
     private UserService userService;
-    
-    public FileService(){
+
+    public FileService() {
         this.policyService = new PolicyService();
         this.userService = new UserService();
     }
-    
-    public void processPolicyData(){
+
+    public void processPolicyData() {
         File policyFile = this.getPolicyDataFile();
         this.loadPolicyData(policyFile);
     }
-    
-    public void processUserData(){
+
+    public void processUserData() {
         File userFile = this.getUserDataFile();
         this.loadUserData(userFile);
     }
-    
-    
+
     public void loadPolicyData(File file) {
         String errorMessageData = "Data in input file is not correct. Try again.";
         String errorMessageLineContent = "Each line must have 2 Strings. Try again.";
