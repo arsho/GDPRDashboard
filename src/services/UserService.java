@@ -1,7 +1,10 @@
-package gdprdashboard;
+package services;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import interfaces.ServiceInterface;
+import storages.UserStorage;
+import models.User;
 
 public class UserService implements ServiceInterface {
 
@@ -11,7 +14,8 @@ public class UserService implements ServiceInterface {
         UserStorage storageInstance = UserStorage.getInstance();
         this.users = storageInstance;
     }
-    public void addUser(User user){
+
+    public void addUser(User user) {
         this.users.addData(user);
     }
 

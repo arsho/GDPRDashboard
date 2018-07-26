@@ -1,10 +1,10 @@
-package gdprdashboard;
+package enums;
 
-public enum UserChoiceEnum {
+public enum UserConsentEnum {
     COMPLY,
     OPT_OUT;
 
-    boolean value() {
+    public boolean value() {
         switch (this) {
             case COMPLY:
                 return true;

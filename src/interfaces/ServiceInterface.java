@@ -1,4 +1,4 @@
-package gdprdashboard;
+package interfaces;
 
 public interface ServiceInterface {
 

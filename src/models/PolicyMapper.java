@@ -1,4 +1,4 @@
-package gdprdashboard;
+package models;
 
 import java.util.UUID;
 

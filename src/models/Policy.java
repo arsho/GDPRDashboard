@@ -1,6 +1,7 @@
-package gdprdashboard;
+package models;
 
 import java.util.UUID;
+import enums.*;
 
 public class Policy extends Core {
 
@@ -18,7 +19,7 @@ public class Policy extends Core {
     public Policy(String name, String description) {
         this.name = name;
         this.description = description;
-        this.defaultValue = UserChoiceEnum.COMPLY.value();
+        this.defaultValue = UserConsentEnum.COMPLY.value();
     }
 
     public String getName() {

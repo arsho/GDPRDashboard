@@ -1,9 +1,10 @@
-package gdprdashboard;
+package models;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UserDashboard extends Core{
+public class UserDashboard extends Core {
+
     private UUID userId;
     private ArrayList<PolicyMapper> policyMappers;
 
@@ -16,19 +17,19 @@ public class UserDashboard extends Core{
         }
     }
 
-    public UUID getUserId(){
+    public UUID getUserId() {
         return this.userId;
     }
 
-    public void addPolicyMapper(PolicyMapper policyMapper){
+    public void addPolicyMapper(PolicyMapper policyMapper) {
         this.policyMappers.add(policyMapper);
     }
-    
-    public void removePolicyMapper(PolicyMapper policyMapper){
+
+    public void removePolicyMapper(PolicyMapper policyMapper) {
         this.policyMappers.remove(policyMapper);
     }
 
-    public ArrayList<PolicyMapper> getPolicyMappers(){
+    public ArrayList<PolicyMapper> getPolicyMappers() {
         return this.policyMappers;
     }
 }

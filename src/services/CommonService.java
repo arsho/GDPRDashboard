@@ -1,9 +1,10 @@
-package gdprdashboard;
-// Common Services
+package services;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
+
+import interfaces.*;
 
 public class CommonService implements ServiceInterface {
 
@@ -15,7 +16,12 @@ public class CommonService implements ServiceInterface {
     public static UUID getUUID() {
         return UUID.randomUUID();
     }
+
     public static UUID fromString(String value) {
-        return UUID.fromString(value);
+        try {
+            return UUID.fromString(value);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }

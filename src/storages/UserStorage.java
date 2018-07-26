@@ -1,34 +1,36 @@
-package gdprdashboard;
+package storages;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import interfaces.BaseStorageInterface;
+import models.User;
 
-public class UserStorage implements BaseStorage{
+public class UserStorage implements BaseStorageInterface {
+
     public ArrayList<User> users;
     private static UserStorage single_instance = null;
 
-    private UserStorage()
-    {
-        this.users=new ArrayList<User>();
+    private UserStorage() {
+        this.users = new ArrayList<User>();
     }
 
-    public static UserStorage getInstance()
-    {
-        if (single_instance == null)
+    public static UserStorage getInstance() {
+        if (single_instance == null) {
             single_instance = new UserStorage();
- 
+        }
+
         return single_instance;
     }
 
-    public ArrayList<User> getData(){
+    public ArrayList<User> getData() {
         return this.users;
     }
 
-    public void addData(User user){
+    public void addData(User user) {
         this.users.add(user);
     }
-    
-    public void removeData(User user){
+
+    public void removeData(User user) {
         this.users.remove(user);
     }
 

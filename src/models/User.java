@@ -1,8 +1,9 @@
-package gdprdashboard;
+package models;
 
 import java.util.UUID;
 
 public class User extends Core {
+
     private String name;
     private String email;
     private String country;
