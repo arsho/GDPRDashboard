@@ -72,7 +72,7 @@ public class InteractiveService implements ServiceInterface {
         String userName,
                 userEmail,
                 userCountry;
-        userName = this.userNextLineInput("Enter user name");
+        userName = this.userNextLineInput("Enter user name: ");
         userEmail = this.userNextLineInput("Enter user email: ");
         userCountry = this.userNextLineInput("Enter user country: ");
         UUID newUserId = this.userService.createUser(userName, userEmail, userCountry);
@@ -159,9 +159,10 @@ public class InteractiveService implements ServiceInterface {
         String userFormat = "| %-36s | %-48s |%n";
         String policyFormat = "| %-36s | %-30s | %-15s |%n";
 
-        System.out.format("+--------------------------------------+--------------------------------------------------+%n");
+        System.out.format("+======================================+==================================================+%n");
         System.out.format("| User ID                              | User Name                                        |%n");
-        System.out.format("+--------------------------------------+--------------------------------------------------+%n");
+        System.out.format("+======================================+==================================================+%n");
+        //System.out.format("+--------------------------------------+--------------------------------------------------+%n");
         System.out.printf(userFormat, userId, this.userService.getUserName(userId));
         System.out.format("+--------------------------------------+--------------------------------+-----------------+%n");
         System.out.format("| Policy ID                            | Policy Name                    | User Consent    |%n");
@@ -184,6 +185,7 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public void showMenu() {
+        String menuFormat = " %-5d - %-48s %n";
         System.out.println("Choose from following choices");
         System.out.println("-----------------------------\n");
         System.out.println("1 - View all users' dashboard");
@@ -193,7 +195,7 @@ public class InteractiveService implements ServiceInterface {
         System.out.println("5 - Delete policy");
         System.out.println("6 - Add new user");
         System.out.println("7 - Delete user");
-        System.out.println("100 - Quit");
+        System.out.println("0 - Quit");
         System.out.println("");
         System.out.print("Enter your choice: ");
 

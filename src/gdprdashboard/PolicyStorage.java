@@ -3,7 +3,7 @@ package gdprdashboard;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class PolicyStorage implements BaseStorage{
+public class PolicyStorage implements BaseStorageInterface{
     public ArrayList<Policy> policies;
     private static PolicyStorage single_instance = null;
 

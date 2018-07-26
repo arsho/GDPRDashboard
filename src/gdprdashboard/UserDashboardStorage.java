@@ -3,7 +3,7 @@ package gdprdashboard;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UserDashboardStorage implements BaseStorage {
+public class UserDashboardStorage implements BaseStorageInterface {
 
     public ArrayList<UserDashboard> userDashboards;
     private static UserDashboardStorage single_instance = null;

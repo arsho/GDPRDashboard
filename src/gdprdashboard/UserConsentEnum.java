@@ -1,6 +1,6 @@
 package gdprdashboard;
 
-public enum UserChoiceEnum {
+public enum UserConsentEnum {
     COMPLY,
     OPT_OUT;
 

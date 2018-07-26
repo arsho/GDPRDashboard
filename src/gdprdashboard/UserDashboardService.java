@@ -67,11 +67,11 @@ public class UserDashboardService implements ServiceInterface {
     }
 
     public void userComplyToPolicy(UUID userId, UUID policyId) {
-        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.COMPLY.value());
+        this.updatePolicyForUser(userId, policyId, UserConsentEnum.COMPLY.value());
     }
 
     public void userNotComplyToPolicy(UUID userId, UUID policyId) {
-        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.OPT_OUT.value());
+        this.updatePolicyForUser(userId, policyId, UserConsentEnum.OPT_OUT.value());
     }
 
     public ArrayList<PolicyMapper> getPolicyMappersByUserId(UUID userId) {
