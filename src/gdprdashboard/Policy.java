@@ -18,7 +18,7 @@ public class Policy extends Core {
     public Policy(String name, String description) {
         this.name = name;
         this.description = description;
-        this.defaultValue = true;
+        this.defaultValue = UserChoiceEnum.COMPLY.value();
     }
 
     public String getName() {

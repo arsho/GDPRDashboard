@@ -6,10 +6,13 @@ import java.util.UUID;
 public class UserDashboardService implements ServiceInterface {
 
     private UserDashboardStorage userDashboards;
+    private PolicyService policyService;
+
 
     public UserDashboardService() {
         UserDashboardStorage storageInstance = UserDashboardStorage.getInstance(); 
         this.userDashboards = storageInstance;
+        this.policyService = new PolicyService();
     }
 
     public UserDashboard getUserDashboard(UUID userId) {
@@ -32,8 +35,8 @@ public class UserDashboardService implements ServiceInterface {
         return userDashboard;
     }
 
-    public UUID createUserDashboard(UUID userId, PolicyService policyService) {
-        UserDashboard userDashboard = new UserDashboard(userId, policyService.getPolicyPool());
+    public UUID createUserDashboard(UUID userId) {
+        UserDashboard userDashboard = new UserDashboard(userId, this.policyService.getPolicyPool());
         this.userDashboards.addData(userDashboard);
         return userDashboard.getId();
     }
@@ -42,29 +45,29 @@ public class UserDashboardService implements ServiceInterface {
         this.userDashboards.removeData(this.getUserDashboardById(dashboardId));
     }
 
-    private void updatePolicyForUser(UUID userId, UUID policyId, boolean userChoice, PolicyService policyService) {
+    private void updatePolicyForUser(UUID userId, UUID policyId, boolean userChoice) {
         UserDashboard userDashboard = this.getUserDashboard(userId);
-        UserDashboardHelper helper = new UserDashboardHelper(userDashboard, policyService);
+        UserDashboardHelper helper = new UserDashboardHelper(userDashboard);
         helper.updatePolicyMappers(policyId, userChoice);
     }
 
-    public void userComplyToPolicy(UUID userId, UUID policyId, PolicyService policyService) {
-        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.COMPLY.value(), policyService);
+    public void userComplyToPolicy(UUID userId, UUID policyId) {
+        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.COMPLY.value());
     }
 
-    public void userNotComplyToPolicy(UUID userId, UUID policyId, PolicyService policyService) {
-        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.OPT_OUT.value(), policyService);
+    public void userNotComplyToPolicy(UUID userId, UUID policyId) {
+        this.updatePolicyForUser(userId, policyId, UserChoiceEnum.OPT_OUT.value());
     }
 
-    public ArrayList<PolicyMapper> getPolicyMappersByUserId(UUID userId, PolicyService policyService) {
+    public ArrayList<PolicyMapper> getPolicyMappersByUserId(UUID userId) {
         UserDashboard userDashboard = this.getUserDashboard(userId);
-        UserDashboardHelper helper = new UserDashboardHelper(userDashboard, policyService);
+        UserDashboardHelper helper = new UserDashboardHelper(userDashboard);
         return helper.getPolicyMappers();
     }
 
-    public void showPolicyMappersByUserId(UUID userId, PolicyService policyService) {
-        for (PolicyMapper policyMapper : this.getPolicyMappersByUserId(userId, policyService)) {
-            System.out.println("\tPolicy Name: " + policyService.getPolicyName(policyMapper.getPolicyId()));
+    public void showPolicyMappersByUserId(UUID userId) {
+        for (PolicyMapper policyMapper : this.getPolicyMappersByUserId(userId)) {
+            System.out.println("\tPolicy Name: " + this.policyService.getPolicyName(policyMapper.getPolicyId()));
             System.out.println("\tUser Choice: " + policyMapper.getUserChoice());
         }
     }
@@ -79,5 +82,17 @@ public class UserDashboardService implements ServiceInterface {
 
     public ArrayList<UserDashboard> getDashboardInstances() {
         return this.userDashboards.getData();
+    }
+    
+    public ArrayList<UUID> getUserByPolicyId(UUID policyId){
+        ArrayList<UUID> userIds = new ArrayList<UUID>();
+        for (UserDashboard dashboard : this.getDashboardInstances()) {
+            for ( PolicyMapper policyMapper: dashboard.getPolicyMappers()){
+                if (policyMapper.getPolicyId() == policyId){
+                    userIds.add(dashboard.getUserId());
+                }
+            }
+        }
+        return userIds;
     }
 }
