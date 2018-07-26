@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class UserDashboardService implements ServiceInterface {
 
-    private ArrayList<UserDashboard> userDashboards;
+    private UserDashboardStorage userDashboards;
 
     public UserDashboardService() {
         UserDashboardStorage storageInstance = UserDashboardStorage.getInstance(); 
@@ -77,7 +77,7 @@ public class UserDashboardService implements ServiceInterface {
         return dashIdList;
     }
 
-    public ArrayList<UUID> getDashboardInstances() {
-        return storageInstance.getData();
+    public ArrayList<UserDashboard> getDashboardInstances() {
+        return this.userDashboards.getData();
     }
 }

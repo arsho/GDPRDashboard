@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class PolicyService implements ServiceInterface {
-    private ArrayList<Policy> policyPool;
+    private PolicyStorage policyPool;
 
     public PolicyService() {
-        PolicyStorage policyStorage = PolicyStorage.getInstance();
-        this.policyPool = policyStorage;
+        this.policyPool = PolicyStorage.getInstance();
     }
 
     public void addPolicy(Policy policy){

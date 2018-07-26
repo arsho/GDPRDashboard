@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class UserService implements ServiceInterface {
 
-    private ArrayList<User> users;
+    private UserStorage users;
 
     public UserService() {
         UserStorage storageInstance = UserStorage.getInstance();
@@ -54,7 +54,7 @@ public class UserService implements ServiceInterface {
         return userIdList;
     }
 
-    public ArrayList<UUID> getUserInstances() {
+    public ArrayList<User> getUserInstances() {
         return this.users.getData();
     }
 }

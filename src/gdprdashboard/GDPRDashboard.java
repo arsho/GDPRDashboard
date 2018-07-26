@@ -26,7 +26,7 @@ public class GDPRDashboard {
         System.out.println("==============showing default policies for users===========");
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");
@@ -35,7 +35,7 @@ public class GDPRDashboard {
         userDashboardService.userNotComplyToPolicy(arnabId, facebookGraphApiID, policyService);
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");
@@ -44,7 +44,7 @@ public class GDPRDashboard {
         UUID netsPaymentApiID = policyService.createPolicy("Nets Payment API", "User data is being sent to Nets Payment API");
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");
@@ -53,12 +53,12 @@ public class GDPRDashboard {
         policyService.deletePolicy(googleAnalyticsID);
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");
 
-        UUID musaId = userService.createUser("Ahmed Musa", "musa@cefalo.com", "Bangladesh");
+        UUID musaId = userService.createUser("Abu Saleh Musa", "musa@cefalo.com", "Bangladesh");
         
         // delcaring dashboards
         UUID musaDashboardId = userDashboardService.createUserDashboard(musaId, policyService);
@@ -66,7 +66,7 @@ public class GDPRDashboard {
         policyService.deletePolicy(googleAnalyticsID);
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
-            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            System.out.println("Showing dashboard for user: " + userService.getUserName(userId));
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");

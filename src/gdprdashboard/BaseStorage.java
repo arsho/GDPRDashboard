@@ -1,9 +1,11 @@
 package gdprdashboard;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 public interface BaseStorage
 {
-    public ArrayList<Core> getData();
-    public void addData(Core instance);
-    public void deleteData(Core instance);
+    public Integer getCount();
+    public boolean doesExist(UUID instanceId);
 }
  

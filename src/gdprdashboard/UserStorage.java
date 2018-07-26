@@ -1,10 +1,11 @@
 package gdprdashboard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class UserStorage implements BaseStorage{
-    public ArrayList<Core> users;
-    private static Singleton single_instance = null;
+    public ArrayList<User> users;
+    private static UserStorage single_instance = null;
 
     private UserStorage()
     {
@@ -14,24 +15,35 @@ public class UserStorage implements BaseStorage{
     public static UserStorage getInstance()
     {
         if (single_instance == null)
-            single_instance = new BaseStorage();
+            single_instance = new UserStorage();
  
         return single_instance;
     }
 
-    @Override
-    public ArrayList<Core> getData(){
+    public ArrayList<User> getData(){
         return this.users;
     }
 
-    @Override
-    public void addData(Core user){
+    public void addData(User user){
         this.users.add(user);
     }
     
-    @Override
-    public void deleteData(Core user){
-        this.users.delete(user);
+    public void removeData(User user){
+        this.users.remove(user);
     }
 
+    @Override
+    public Integer getCount() {
+        return this.getData().size();
+    }
+
+    @Override
+    public boolean doesExist(UUID userId) {
+        for (User user : this.getData()) {
+            if (user.getId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

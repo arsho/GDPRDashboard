@@ -1,37 +1,49 @@
 package gdprdashboard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class UserDashboardStorage implements BaseStorage{
-    public ArrayList<Core> userDashboards;
-    private static Singleton single_instance = null;
+public class UserDashboardStorage implements BaseStorage {
 
-    private UserStorage()
-    {
+    public ArrayList<UserDashboard> userDashboards;
+    private static UserDashboardStorage single_instance = null;
+
+    private UserDashboardStorage() {
         this.userDashboards = new ArrayList<UserDashboard>();
     }
 
-    public static UserStorage getInstance()
-    {
-        if (single_instance == null)
-            single_instance = new BaseStorage();
- 
+    public static UserDashboardStorage getInstance() {
+        if (single_instance == null) {
+            single_instance = new UserDashboardStorage();
+        }
+
         return single_instance;
     }
 
-    @Override
-    public ArrayList<Core> getData(){
+    public ArrayList<UserDashboard> getData() {
         return this.userDashboards;
     }
 
-    @Override
-    public void addData(Core userDashboard){
+    public void addData(UserDashboard userDashboard) {
         this.userDashboards.add(userDashboard);
     }
-    
-    @Override
-    public void deleteData(Core userDashboard){
-        this.userDashboards.delete(userDashboard);
+
+    public void removeData(Core userDashboard) {
+        this.userDashboards.remove(userDashboard);
     }
 
+    @Override
+    public Integer getCount() {
+        return this.getData().size();
+    }
+
+    @Override
+    public boolean doesExist(UUID instanceId) {
+        for (UserDashboard userDash : this.getData()) {
+            if (userDash.getId() == instanceId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

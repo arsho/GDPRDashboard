@@ -1,37 +1,50 @@
 package gdprdashboard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PolicyStorage implements BaseStorage{
-    public ArrayList<Core> policies;
-    private static Singleton single_instance = null;
+    public ArrayList<Policy> policies;
+    private static PolicyStorage single_instance = null;
 
-    private UserStorage()
+    private PolicyStorage()
     {
-        this.users=new ArrayList<User>();
+        this.policies=new ArrayList<Policy>();
     }
 
-    public static UserStorage getInstance()
+    public static PolicyStorage getInstance()
     {
         if (single_instance == null)
-            single_instance = new BaseStorage();
+            single_instance = new PolicyStorage();
  
         return single_instance;
     }
 
-    @Override
-    public ArrayList<Core> getData(){
+    public ArrayList<Policy> getData(){
         return this.policies;
     }
 
-    @Override
-    public void addData(Core policy){
+    public void addData(Policy policy){
         this.policies.add(policy);
     }
     
+    public void removeData(Policy policy){
+        this.policies.remove(policy);
+    }
+
     @Override
-    public void deleteData(Core policy){
-        this.policies.delete(policy);
+    public Integer getCount() {
+        return this.policies.size();
+    }
+
+    @Override
+    public boolean doesExist(UUID instanceId) {
+         for (Policy policy : this.getData()) {
+            if (policy.getId() == instanceId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
