@@ -2,30 +2,23 @@ package gdprdashboard;
 
 import java.util.UUID;
 
-public class Policy {
+public class Policy extends Core {
 
     // Todo : check if we can store default value
-    private UUID id;
     private String name;
     private String description;
     private boolean defaultValue;
 
     public Policy(String name, String description, boolean defaultValue) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.defaultValue = defaultValue;
     }
 
     public Policy(String name, String description) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.defaultValue = true;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getName() {
