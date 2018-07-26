@@ -7,12 +7,15 @@ public class UserDashboardService implements ServiceInterface {
 
     private UserDashboardStorage userDashboards;
     private PolicyService policyService;
+    private UserService userService;
+
 
 
     public UserDashboardService() {
         UserDashboardStorage storageInstance = UserDashboardStorage.getInstance(); 
         this.userDashboards = storageInstance;
         this.policyService = new PolicyService();
+        this.userService = new UserService();
     }
 
     public UserDashboard getUserDashboard(UUID userId) {
@@ -34,8 +37,20 @@ public class UserDashboardService implements ServiceInterface {
         }
         return userDashboard;
     }
+    
+    public void createAllUserDashboards(){
+        for(UUID userId: this.userService.getUsers()){
+            this.createUserDashboard(userId);
+        }
+    }
 
+    @SuppressWarnings("empty-statement")
     public UUID createUserDashboard(UUID userId) {
+        for(UserDashboard userDashboard : this.getDashboardInstances()){
+          if (userDashboard.getUserId().equals(userId)){
+              return userDashboard.getId();
+          };  
+        };
         UserDashboard userDashboard = new UserDashboard(userId, this.policyService.getPolicyPool());
         this.userDashboards.addData(userDashboard);
         return userDashboard.getId();
@@ -73,10 +88,10 @@ public class UserDashboardService implements ServiceInterface {
     }
 
     public ArrayList<UUID> getDashboards() {
-        ArrayList<UUID> dashIdList = new ArrayList<UUID>();
-        for (UserDashboard dash : this.getDashboardInstances()) {
+        ArrayList<UUID> dashIdList = new ArrayList<>();
+        this.getDashboardInstances().forEach((dash) -> {
             dashIdList.add(dash.getId());
-        }
+        });
         return dashIdList;
     }
 
@@ -85,14 +100,14 @@ public class UserDashboardService implements ServiceInterface {
     }
     
     public ArrayList<UUID> getUserByPolicyId(UUID policyId){
-        ArrayList<UUID> userIds = new ArrayList<UUID>();
-        for (UserDashboard dashboard : this.getDashboardInstances()) {
+        ArrayList<UUID> userIds = new ArrayList<>();
+        this.getDashboardInstances().forEach((dashboard) -> {
             for ( PolicyMapper policyMapper: dashboard.getPolicyMappers()){
                 if (policyMapper.getPolicyId().equals(policyId)){
                     userIds.add(dashboard.getUserId());
                 }
             }
-        }
+        });
         return userIds;
     }
 }
