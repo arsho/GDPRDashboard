@@ -3,11 +3,12 @@ package gdprdashboard;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class UserDashboardHelper{
+public class UserDashboardHelper {
+
     private UserDashboard userDashboard;
     private PolicyService policyService;
 
-    public UserDashboardHelper( UserDashboard userDashboard, PolicyService policyService) {
+    public UserDashboardHelper(UserDashboard userDashboard, PolicyService policyService) {
         this.userDashboard = userDashboard;
         this.policyService = policyService;
     }
@@ -25,7 +26,7 @@ public class UserDashboardHelper{
                 this.userDashboard.addPolicyMapper(new PolicyMapper(policy.getId(), policy.getDefaultValue()));
             }
         }
-        for (PolicyMapper policyMapper : this.userDashboard.getPolicyMappers()) {
+        for (PolicyMapper policyMapper : new ArrayList<PolicyMapper>(this.userDashboard.getPolicyMappers())) {
             boolean foundPolicy = false;
             for (Policy policy : policies) {
                 if (policyMapper.getPolicyId() == policy.getId()) {
@@ -40,7 +41,8 @@ public class UserDashboardHelper{
 
     public void updatePolicyMappers(UUID policyId, boolean userChoice) {
         syncPolicyMappers();
-        for (PolicyMapper policyMapper : this.policyMappers) {
+
+        for (PolicyMapper policyMapper : this.userDashboard.getPolicyMappers()) {
             if (policyMapper.getPolicyId() == policyId) {
                 policyMapper.setUserChoice(userChoice);
             }
@@ -48,11 +50,7 @@ public class UserDashboardHelper{
     }
 
     public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+        return this.userDashboard.getUserId();
     }
 
     public ArrayList<PolicyMapper> getPolicyMappers() {

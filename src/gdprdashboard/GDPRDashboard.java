@@ -1,7 +1,7 @@
 package gdprdashboard;
 
 import java.util.ArrayList;
-
+import java.util.UUID;
 public class GDPRDashboard {
     
     public static void main(String[] args) {
@@ -19,8 +19,8 @@ public class GDPRDashboard {
         UUID arnabId = userService.createUser("Arnab Kumar Shil", "arnab@cefalo.com", "Bangladesh");
         
         // delcaring dashboards
-        UUID shovonDashboardId = userDashboardService.createUserDashboard(shovon, policyService);
-        UUID arnabDashboardId = userDashboardService.createUserDashboard(arnab, policyService);
+        UUID shovonDashboardId = userDashboardService.createUserDashboard(shovonId, policyService);
+        UUID arnabDashboardId = userDashboardService.createUserDashboard(arnabId, policyService);
 
         
         System.out.println("==============showing default policies for users===========");
@@ -32,7 +32,7 @@ public class GDPRDashboard {
         System.out.println("===========================================================\n");
         
         System.out.println("==================updating policy for arnab==================");
-        userDashboardService.userNotComplyToPolicy(arnabId, googleAnalyticsID, policyService);
+        userDashboardService.userNotComplyToPolicy(arnabId, facebookGraphApiID, policyService);
         System.out.println("===========================================================");
         for (UUID userId : userService.getUsers()) {
             System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
@@ -57,6 +57,20 @@ public class GDPRDashboard {
             userDashboardService.showPolicyMappersByUserId(userId, policyService);
         }
         System.out.println("===========================================================\n");
+
+        UUID musaId = userService.createUser("Ahmed Musa", "musa@cefalo.com", "Bangladesh");
+        
+        // delcaring dashboards
+        UUID musaDashboardId = userDashboardService.createUserDashboard(musaId, policyService);
+        System.out.println("======================add new user=====================");
+        policyService.deletePolicy(googleAnalyticsID);
+        System.out.println("===========================================================");
+        for (UUID userId : userService.getUsers()) {
+            System.out.println("Showing dashboard for user:" + userService.getUserName(userId));
+            userDashboardService.showPolicyMappersByUserId(userId, policyService);
+        }
+        System.out.println("===========================================================\n");
+        
         
     }
     

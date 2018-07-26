@@ -1,10 +1,10 @@
 // Core Model
 package gdprdashboard;
-
+import java.util.UUID;
 public class Core implements ModelInterface {
     private UUID id;
     private double dateCreated;
-    public Policy() {
+    public Core() {
         this.id = CommonService.getUUID();
         this.dateCreated = CommonService.getCurrentTimeStamp();
     }

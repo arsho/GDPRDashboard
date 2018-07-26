@@ -1,5 +1,6 @@
 package gdprdashboard;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class PolicyService implements ServiceInterface {
@@ -38,11 +39,11 @@ public class PolicyService implements ServiceInterface {
     }
 
     public void updatePolicyName(UUID policyId, String name){
-        this.getPolicy(polidyId).setName(name);
+        this.getPolicy(policyId).setName(name);
     }
 
     public void updatePolicyDescription(UUID policyId, String description){
-        this.getPolicy(polidyId).setDescription(description);
+        this.getPolicy(policyId).setDescription(description);
     }
 
     public ArrayList<Policy> getPolicyPool(){
@@ -50,7 +51,7 @@ public class PolicyService implements ServiceInterface {
     }
 
     public ArrayList<UUID> getPolicyIDPool(){
-        ArrayList<UUID> policyIdList = new ArrayyList<UUID>();
+        ArrayList<UUID> policyIdList = new ArrayList<UUID>();
         for (Policy policy : this.policyPool) {
             policyIdList.add(policy.getId());
         }

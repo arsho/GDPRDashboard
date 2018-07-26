@@ -4,7 +4,7 @@ public enum UserChoiceEnum {
     COMPLY,
     OPT_OUT;
 
-    bool value() {
+    boolean value() {
         switch (this) {
             case COMPLY:
                 return true;
