@@ -7,11 +7,12 @@ public class PolicyService implements ServiceInterface {
     private ArrayList<Policy> policyPool;
 
     public PolicyService() {
-        this.policyPool = new ArrayList<Policy>();
+        PolicyStorage policyStorage = PolicyStorage.getInstance();
+        this.policyPool = policyStorage;
     }
 
     public void addPolicy(Policy policy){
-        this.policyPool.add(policy);
+        this.policyPool.addData(policy);
     }
 
     public UUID createPolicy(String name, String description){
@@ -21,12 +22,12 @@ public class PolicyService implements ServiceInterface {
     }
 
     public void deletePolicy(UUID policyId){
-        this.policyPool.remove(this.getPolicy(policyId));
+        this.policyPool.removeData(this.getPolicy(policyId));
     }
 
     private Policy getPolicy(UUID policyId){
         Policy nPolicy = null;
-        for (Policy policy : this.policyPool) {
+        for (Policy policy : this.policyPool.getData()) {
             if (policy.getId() == policyId) {
                 nPolicy = policy;
             }
@@ -47,12 +48,12 @@ public class PolicyService implements ServiceInterface {
     }
 
     public ArrayList<Policy> getPolicyPool(){
-        return this.policyPool;
+        return this.policyPool.getData();
     }
 
     public ArrayList<UUID> getPolicyIDPool(){
         ArrayList<UUID> policyIdList = new ArrayList<UUID>();
-        for (Policy policy : this.policyPool) {
+        for (Policy policy : this.getPolicyPool()) {
             policyIdList.add(policy.getId());
         }
         return policyIdList;

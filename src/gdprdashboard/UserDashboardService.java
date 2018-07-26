@@ -8,12 +8,13 @@ public class UserDashboardService implements ServiceInterface {
     private ArrayList<UserDashboard> userDashboards;
 
     public UserDashboardService() {
-        this.userDashboards = new ArrayList<UserDashboard>();
+        UserDashboardStorage storageInstance = UserDashboardStorage.getInstance(); 
+        this.userDashboards = storageInstance;
     }
 
     public UserDashboard getUserDashboard(UUID userId) {
         UserDashboard userDashboard = null;
-        for (UserDashboard dashboard : this.userDashboards) {
+        for (UserDashboard dashboard : this.getDashboardInstances()) {
             if (dashboard.getUserId() == userId) {
                 userDashboard = dashboard;
             }
@@ -23,7 +24,7 @@ public class UserDashboardService implements ServiceInterface {
 
     public UserDashboard getUserDashboardById(UUID dashId) {
         UserDashboard userDashboard = null;
-        for (UserDashboard dashboard : this.userDashboards) {
+        for (UserDashboard dashboard : this.getDashboardInstances()) {
             if (dashboard.getId() == dashId) {
                 userDashboard = dashboard;
             }
@@ -33,12 +34,12 @@ public class UserDashboardService implements ServiceInterface {
 
     public UUID createUserDashboard(UUID userId, PolicyService policyService) {
         UserDashboard userDashboard = new UserDashboard(userId, policyService.getPolicyPool());
-        this.userDashboards.add(userDashboard);
+        this.userDashboards.addData(userDashboard);
         return userDashboard.getId();
     }
 
     public void deleteUserDashboard(UUID dashboardId) {
-        this.userDashboards.remove(this.getUserDashboardById(dashboardId));
+        this.userDashboards.removeData(this.getUserDashboardById(dashboardId));
     }
 
     private void updatePolicyForUser(UUID userId, UUID policyId, boolean userChoice, PolicyService policyService) {
@@ -70,9 +71,13 @@ public class UserDashboardService implements ServiceInterface {
 
     public ArrayList<UUID> getDashboards() {
         ArrayList<UUID> dashIdList = new ArrayList<UUID>();
-        for (UserDashboard dash : this.userDashboards) {
+        for (UserDashboard dash : this.getDashboardInstances()) {
             dashIdList.add(dash.getId());
         }
         return dashIdList;
+    }
+
+    public ArrayList<UUID> getDashboardInstances() {
+        return storageInstance.getData();
     }
 }
