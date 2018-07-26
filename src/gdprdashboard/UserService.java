@@ -28,7 +28,7 @@ public class UserService implements ServiceInterface {
     public User getUser(UUID userId) {
         User currentUser = null;
         for (User user : this.getUserInstances()) {
-            if (user.getId() == userId) {
+            if (user.getId().equals(userId)) {
                 currentUser = user;
             }
         }

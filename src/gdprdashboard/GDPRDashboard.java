@@ -78,9 +78,9 @@ public class GDPRDashboard {
 
         System.out.println("====================get users from a policy==================");
         System.out.println("===========================================================");
-        System.out.println("Showing user ids for policy: " + facebookGraphApiID + "\n");
+        System.out.println("Showing user ids for policy: " + facebookGraphApiID);
         userDashboardService.getUserByPolicyId(facebookGraphApiID).forEach((userId) -> {
-            System.out.println("user id"+ userId + ", name: " + userService.getUserName(userId));
+            System.out.println("\tuser id"+ userId + ", name: " + userService.getUserName(userId));
         });
         System.out.println("===========================================================\n");
 

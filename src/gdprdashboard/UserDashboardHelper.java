@@ -17,8 +17,9 @@ public class UserDashboardHelper {
         ArrayList<Policy> policies = this.policyService.getPolicyPool();
         for (Policy policy : policies) {
             boolean existingPolicy = false;
+
             for (PolicyMapper policyMapper : this.userDashboard.getPolicyMappers()) {
-                if (policyMapper.getPolicyId() == policy.getId()) {
+                if (policyMapper.getPolicyId().equals(policy.getId())) {
                     existingPolicy = true;
                 }
             }
@@ -29,7 +30,7 @@ public class UserDashboardHelper {
         for (PolicyMapper policyMapper : new ArrayList<PolicyMapper>(this.userDashboard.getPolicyMappers())) {
             boolean foundPolicy = false;
             for (Policy policy : policies) {
-                if (policyMapper.getPolicyId() == policy.getId()) {
+                if (policyMapper.getPolicyId().equals(policy.getId())) {
                     foundPolicy = true;
                 }
             }
@@ -43,7 +44,7 @@ public class UserDashboardHelper {
         syncPolicyMappers();
 
         for (PolicyMapper policyMapper : this.userDashboard.getPolicyMappers()) {
-            if (policyMapper.getPolicyId() == policyId) {
+            if (policyMapper.getPolicyId().equals(policyId)) {
                 policyMapper.setUserChoice(userChoice);
             }
         }

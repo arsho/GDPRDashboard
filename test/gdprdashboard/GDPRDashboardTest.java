@@ -27,7 +27,7 @@ public class GDPRDashboardTest {
     public void testMain() {
         System.out.println("main");
         String[] args = null;
-        GDPRDashboard.main(args);
+        InteractiveGDPRDashboard.main(args);
     }
     
 }
