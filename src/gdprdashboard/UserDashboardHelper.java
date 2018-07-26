@@ -8,9 +8,9 @@ public class UserDashboardHelper {
     private UserDashboard userDashboard;
     private PolicyService policyService;
 
-    public UserDashboardHelper(UserDashboard userDashboard, PolicyService policyService) {
+    public UserDashboardHelper(UserDashboard userDashboard) {
         this.userDashboard = userDashboard;
-        this.policyService = policyService;
+        this.policyService = new PolicyService();
     }
 
     private void syncPolicyMappers() {

@@ -5,25 +5,29 @@ import java.util.UUID;
 
 public class UserService implements ServiceInterface {
 
-    private ArrayList<User> users;
+    private UserStorage users;
 
     public UserService() {
-        this.users = new ArrayList<User>();
+        UserStorage storageInstance = UserStorage.getInstance();
+        this.users = storageInstance;
+    }
+    public void addUser(User user){
+        this.users.addData(user);
     }
 
     public UUID createUser(String name, String email, String country) {
         User user = new User(name, email, country);
-        this.users.add(user);
+        this.addUser(user);
         return user.getId();
     }
 
     public void deleteUser(UUID userId) {
-        this.users.remove(this.getUser(userId));
+        this.users.removeData(this.getUser(userId));
     }
 
     public User getUser(UUID userId) {
         User currentUser = null;
-        for (User user : this.users) {
+        for (User user : this.getUserInstances()) {
             if (user.getId() == userId) {
                 currentUser = user;
             }
@@ -44,9 +48,13 @@ public class UserService implements ServiceInterface {
 
     public ArrayList<UUID> getUsers() {
         ArrayList<UUID> userIdList = new ArrayList<UUID>();
-        for (User user : this.users) {
+        for (User user : this.getUserInstances()) {
             userIdList.add(user.getId());
         }
         return userIdList;
+    }
+
+    public ArrayList<User> getUserInstances() {
+        return this.users.getData();
     }
 }
