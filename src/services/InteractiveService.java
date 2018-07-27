@@ -2,10 +2,10 @@ package services;
 
 import java.util.Scanner;
 import java.util.UUID;
-import interfaces.ServiceInterface;
 import models.PolicyMapper;
+import enums.UserMenuEnum;
 
-public class InteractiveService implements ServiceInterface {
+public class InteractiveService {
 
     Scanner sc = new Scanner(System.in);
     private UserService userService;
@@ -179,10 +179,20 @@ public class InteractiveService implements ServiceInterface {
         System.out.println();
     }
 
-    public void showAllUserDashboard() {
+    public void showGDPRDashboardHeader() {
         System.out.format("+=========================================================================================+%n");
+        System.out.format("|                             WELCOME TO GDPR DASHBOARD                                   |%n");
+        System.out.format("+=========================================================================================+%n");
+        for (UUID userId : this.userService.getUsers()) {
+            showSingleUserDashboard(userId);
+        }
+        System.out.println("\n");
+    }
+
+    public void showAllUserDashboard() {
+        System.out.format("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+%n");
         System.out.format("|                                  GDPR DASHBOARDS                                        |%n");
-        System.out.format("+-----------------------------------------------------------------------------------------+%n");
+        System.out.format("+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+%n");
         for (UUID userId : this.userService.getUsers()) {
             showSingleUserDashboard(userId);
         }
@@ -190,17 +200,12 @@ public class InteractiveService implements ServiceInterface {
     }
 
     public void showMenu() {
-        String menuFormat = " %-5d - %-48s %n";
+        String menuFormat = " %2d - %-48s %n";
         System.out.println("Choose from following choices");
-        System.out.println("-----------------------------\n");
-        System.out.println("1 - View all users' dashboard");
-        System.out.println("2 - Update an user consent");
-        System.out.println("3 - View an user's dashboard");
-        System.out.println("4 - Add new policy");
-        System.out.println("5 - Delete policy");
-        System.out.println("6 - Add new user");
-        System.out.println("7 - Delete user");
-        System.out.println("0 - Quit");
+        System.out.println("-----------------------------");
+        for (UserMenuEnum item : UserMenuEnum.values()) {
+            System.out.printf(menuFormat, item.getIndex(), item.getDescription());
+        }
         System.out.println("");
     }
 }

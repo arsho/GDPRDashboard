@@ -1,13 +1,10 @@
 package services;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
+import enums.DefaultFileEnum;
 
-import models.*;
-import interfaces.*;
-
-public class FileService implements ServiceInterface {
+public class FileService {
 
     Scanner sc = new Scanner(System.in);
     private Scanner fileScanner;
@@ -94,13 +91,13 @@ public class FileService implements ServiceInterface {
 
     public File getUserDataFile() {
         String promptMessage = "Enter path for user data file or for default file press Enter: ";
-        String defaultFile = "src/gdprdashboard/data/user-data.txt";
+        String defaultFile = DefaultFileEnum.USER_DEFAULT_FILE.getFilePath();
         return getInputFile(promptMessage, defaultFile);
     }
 
     public File getPolicyDataFile() {
         String promptMessage = "Enter path for user data file or for default file press Enter: ";
-        String defaultFile = "src/gdprdashboard/data/policy-data.txt";
+        String defaultFile = DefaultFileEnum.POLICY_DEFAULT_FILE.getFilePath();
         return getInputFile(promptMessage, defaultFile);
     }
 }
