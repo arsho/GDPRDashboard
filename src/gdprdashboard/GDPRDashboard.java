@@ -58,7 +58,7 @@ public class GDPRDashboard {
                     programExit = true;
                     break;
                 default:
-                    // The user input an unexpected choice.
+                    // The user input an unexpected choice. Exit the program.
                     programExit = true;
                     break;
             }
