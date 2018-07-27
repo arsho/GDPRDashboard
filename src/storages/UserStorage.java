@@ -42,7 +42,7 @@ public class UserStorage implements BaseStorageInterface {
     @Override
     public boolean doesExist(UUID userId) {
         for (User user : this.getData()) {
-            if (user.getId() == userId) {
+            if (user.getId().equals(userId)) {
                 return true;
             }
         }
