@@ -42,7 +42,7 @@ public class PolicyStorage implements BaseStorageInterface {
     @Override
     public boolean doesExist(UUID instanceId) {
         for (Policy policy : this.getData()) {
-            if (policy.getId() == instanceId) {
+            if (policy.getId().equals(instanceId)) {
                 return true;
             }
         }
