@@ -63,11 +63,10 @@ public class InteractiveService {
         deleteUserId = CommonService.fromString(deleteUserIdStr);
         try {
             this.userService.deleteUser(deleteUserId);
+            this.showAllUserDashboard();
         } catch (Exception e) {
             System.err.println("User not found");
         }
-
-        this.showAllUserDashboard();
     }
 
     public void addUserInteractive() {
@@ -89,14 +88,13 @@ public class InteractiveService {
         if (deletePolicyId == null) {
             System.err.println("invalid input");
             return;
-        };
+        }
         try {
             this.policyService.deletePolicy(deletePolicyId);
             this.showAllUserDashboard();
         } catch (Exception exp) {
             System.err.println("Policy not found");
         }
-
     }
 
     public void addSinglePolicyInteractive() {
@@ -140,7 +138,7 @@ public class InteractiveService {
             return;
         }
         int consent = this.nextIntegerInput("Enter Consent(1 for yes, 2 for no): ");
-        consentValue = (consent == 1) ? true : false;
+        consentValue = (consent == 1);
         if (consentValue) {
             try {
                 this.userDashboardService.userComplyToPolicy(userId, policyId);
