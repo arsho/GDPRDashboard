@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class PolicyMapper extends Core {
 
-    // Todo: how to store the id rather than the policy itself? PolicyPool?
     private UUID policyId;
     private boolean userChoice;
 

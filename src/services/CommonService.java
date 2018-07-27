@@ -1,12 +1,8 @@
 package services;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.UUID;
 
-import interfaces.*;
-
-public class CommonService implements ServiceInterface {
+public class CommonService {
 
     public static double getCurrentTimeStamp() {
         java.util.Date date = new java.util.Date();

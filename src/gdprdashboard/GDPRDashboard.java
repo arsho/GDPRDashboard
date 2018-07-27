@@ -1,10 +1,6 @@
 package gdprdashboard;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.UUID;
-import services.UserService;
+import enums.UserMenuEnum;
 import services.UserDashboardService;
 import services.FileService;
 import services.InteractiveService;
@@ -12,11 +8,11 @@ import services.InteractiveService;
 public class GDPRDashboard {
 
     public static void main(String[] args) {
-        System.out.println("WELCOME TO GDPR DASHBOARD");
-        System.out.println("===========================================================\n");
+
         UserDashboardService userDashboardService = new UserDashboardService();
         FileService fileService = new FileService();
         InteractiveService interactiveService = new InteractiveService();
+        interactiveService.showGDPRDashboardHeader();
         fileService.processPolicyData();
         fileService.processUserData();
         userDashboardService.createAllUserDashboards();
@@ -26,37 +22,38 @@ public class GDPRDashboard {
             int userChoice;
             String promptMsg = "Enter your choice: ";
             userChoice = interactiveService.nextIntegerInput(promptMsg);
+            UserMenuEnum userChoosenItem = UserMenuEnum.getMenuFromIndex(userChoice);
             boolean programExit = false;
-            switch (userChoice) {
-                case 1:
+            switch (userChoosenItem) {
+                case VIEW_ALL_CONSENT:
                     // Show all users dashboard
                     interactiveService.showAllUserDashboard();
                     break;
-                case 2:
+                case UPDATE_ONE_CONSENT:
                     // Update one user consent
                     interactiveService.updateUserConscentInteractive();
                     break;
-                case 3:
+                case VIEW_ONE_CONSENT:
                     // Show single user dashboard
                     interactiveService.showSingleUserDashboardInteractive();
                     break;
-                case 4:
+                case ADD_POLICY:
                     // Add a policy
                     interactiveService.addSinglePolicyInteractive();
                     break;
-                case 5:
+                case DELETE_POLICY:
                     // Delete a policy
                     interactiveService.deleteSinglePolicyInteractive();
                     break;
-                case 6:
+                case ADD_USER:
                     // Add an user
                     interactiveService.addUserInteractive();
                     break;
-                case 7:
+                case DELETE_USER:
                     // Delete an user
                     interactiveService.deleteUserInteractive();
                     break;
-                case 0:
+                case QUIT:
                     // Perform "quit" case.
                     programExit = true;
                     break;
