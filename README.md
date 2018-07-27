@@ -1,5 +1,6 @@
 ## GDPR Dashboard
 ![GDPR Dashboard demo](screenshot/GDPR_DASHBOARD.png)
+
 Final project of Effective Object Oriented Programming course from Cefalo School
 
 ### Abstract:
@@ -21,3 +22,8 @@ Finally Settings which will bridge between Privacy policy and User; it will cont
 ### Technology:
 - Java
 
+### Screencast
+![GDPR Dashboard](https://github.com/ruddra/blog-images/raw/master/gdpr.gif)
+
+### Project Management
+We managed our project through [this](https://github.com/arsho/GDPRDashboard/projects/1) board.

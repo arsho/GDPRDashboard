@@ -42,7 +42,7 @@ public class UserDashboardStorage implements BaseStorageInterface {
     @Override
     public boolean doesExist(UUID instanceId) {
         for (UserDashboard userDash : this.getData()) {
-            if (userDash.getId() == instanceId) {
+            if (userDash.getId().equals(instanceId)) {
                 return true;
             }
         }
