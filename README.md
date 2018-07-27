@@ -23,7 +23,7 @@ Finally Settings which will bridge between Privacy policy and User; it will cont
 - Java
 
 ### Screencast
-![GDPR Dashboard](https://drive.google.com/open?id=1pXEjXLjP1E76Q2Exj5jVJFHaLdVNWyuV)
+![GDPR Dashboard](https://github.com/ruddra/blog-images/raw/master/gdpr.gif)
 
 ### Project Management
 We managed the project through Kanban board, and you can find it [here](https://github.com/arsho/GDPRDashboard/projects/1).
