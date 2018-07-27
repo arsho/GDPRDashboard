@@ -1,5 +1,6 @@
 ## GDPR Dashboard
 ![GDPR Dashboard demo](screenshot/GDPR_DASHBOARD.png)
+
 Final project of Effective Object Oriented Programming course from Cefalo School
 
 ### Abstract:
