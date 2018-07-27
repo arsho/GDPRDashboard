@@ -1,0 +1,2 @@
+Google Analytics,User data is being sent to Google Analytics
+Facebook Graph API,User data is being sent to Facebook Graph API
