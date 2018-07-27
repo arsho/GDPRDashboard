@@ -1,11 +1,9 @@
 package models;
 
-import java.util.UUID;
-import enums.*;
+import enums.UserConsentEnum;
 
 public class Policy extends Core {
 
-    // Todo : check if we can store default value
     private String name;
     private String description;
     private boolean defaultValue;
@@ -46,5 +44,4 @@ public class Policy extends Core {
         this.defaultValue = defaultValue;
     }
 
-    
 }

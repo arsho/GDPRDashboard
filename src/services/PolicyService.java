@@ -2,11 +2,10 @@ package services;
 
 import java.util.ArrayList;
 import java.util.UUID;
-import interfaces.ServiceInterface;
 import storages.PolicyStorage;
 import models.Policy;
 
-public class PolicyService implements ServiceInterface {
+public class PolicyService {
 
     private PolicyStorage policyPool;
 

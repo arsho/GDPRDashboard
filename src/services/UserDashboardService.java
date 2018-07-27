@@ -7,9 +7,8 @@ import storages.UserDashboardStorage;
 import models.UserDashboard;
 import models.PolicyMapper;
 import enums.UserConsentEnum;
-import interfaces.ServiceInterface;
 
-public class UserDashboardService implements ServiceInterface {
+public class UserDashboardService {
 
     private UserDashboardStorage userDashboards;
     private PolicyService policyService;
