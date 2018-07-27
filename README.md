@@ -26,4 +26,4 @@ Finally Settings which will bridge between Privacy policy and User; it will cont
 ![GDPR Dashboard](https://github.com/ruddra/blog-images/raw/master/gdpr.gif)
 
 ### Project Management
-We managed the project through Kanban board, and you can find it [here](https://github.com/arsho/GDPRDashboard/projects/1).
+We managed our project through [this](https://github.com/arsho/GDPRDashboard/projects/1) board.
