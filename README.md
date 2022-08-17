@@ -29,7 +29,7 @@ Finally Settings which will bridge between Privacy policy and User; it will cont
 We managed our project through [this](https://github.com/arsho/GDPRDashboard/projects/1) board.
 
 
-### Publicatoin
+### Publication
 A. R. Shovon, S. Roy, A. K. Shil and T. Atik, "[GDPR Compliance: Implementation Use Cases for User Data Privacy in News Media Industry](https://ieeexplore.ieee.org/document/8934660)," 2019 1st International Conference on Advances in Science, Engineering and Robotics Technology (ICASERT), 2019, pp. 1-6, doi: 10.1109/ICASERT.2019.8934660.
 
 
