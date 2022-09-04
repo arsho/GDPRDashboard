@@ -1,7 +1,7 @@
 ## GDPR Dashboard
 ![GDPR Dashboard demo](screenshot/GDPR_DASHBOARD.png)
 
-Final project of Effective Object Oriented Programming course from Cefalo School
+Final project of Effective Object Oriented Programming course from Cefalo School: [Presentation](https://prezi.com/3ofeemfzw7ao/gdpr-dashboard-13_12_2018)
 
 ### Abstract:
 We want to design a system which will contain User, Privacy Policy, Settings. User will contain User specific information.
